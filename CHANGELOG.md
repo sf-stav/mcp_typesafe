@@ -5,6 +5,12 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-09-19
+
+### Changed
+
+- Documentation: added an *Invariants* section to the README, and a matching module doc-comment in `src/main.rs` stating the contracts shared by all tools.
+
 ## [0.1.1] - 2026-09-19
 
 ### Changed
@@ -27,5 +33,6 @@ Initial public release.
 - CLI configuration for transport mode, bind address, SSE paths, logging destination/level, API key, and API base URL.
 - Documentation: `README.md`, `TEST_SUITE_SIMPLE.md` (15-test coverage suite), `TEST_LONG.md` (end-to-end pipeline test).
 
+[0.1.2]: https://github.com/sf-stav/mcp_typesafe/releases/tag/v0.1.2
 [0.1.1]: https://github.com/sf-stav/mcp_typesafe/releases/tag/v0.1.1
 [0.1.0]: https://github.com/sf-stav/mcp_typesafe/releases/tag/v0.1.0

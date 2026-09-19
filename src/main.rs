@@ -1,3 +1,29 @@
+//! mcp-typesafe — MCP server for TypeSafe's System One API.
+//!
+//! # Invariants
+//!
+//! Contracts upheld by every tool (the full list lives in README, "Invariants"):
+//!
+//! 1. **One question, one judgment** — questions are scoped to a single item;
+//!    items in a batch never influence each other.
+//! 2. **The model judges; the server computes** — thresholds, orderings, counts,
+//!    means, spreads and clusters are derived in Rust from raw model outputs,
+//!    never decided by the model.
+//! 3. **Raw probabilities always survive** — derived fields (`matched`, `failed`,
+//!    `buckets`, `ranked`, `clusters`, `mean`, …) ship alongside the raw data
+//!    they were computed from.
+//! 4. **Index alignment** — results reference inputs by index and preserve input
+//!    order; chunking is transparent (identical semantics at any size).
+//! 5. **Verification reads "higher = passes"** — `failed` is exactly the set of
+//!    checks below the caller's threshold.
+//! 6. **Independent samples** — `stability_check` never mutates caller state;
+//!    object states get a fresh internal token per draw.
+//! 7. **Stateless, read-only, one credential** — no tool writes files, executes
+//!    code, or keeps state; the only egress is the TypeSafe API under one key.
+//! 8. **Fail fast** — inputs and caps are validated before any upstream call.
+//!
+//! See README "Design notes" for the rationale behind these contracts.
+
 use anyhow::Result;
 use clap::{Parser, ValueEnum};
 use rmcp::{

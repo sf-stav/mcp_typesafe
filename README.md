@@ -198,6 +198,20 @@ Planned tool calls
 - **Calibrated, not authoritative.** Low confidence or a mid-range `noul` means "do not guess": route to review, clarification, or escalation.
 - **Keep arithmetic in code.** Jev is a judgment engine, not a calculator — don't ask it to count, compare dates, or compute totals. Extract components with questions and calculate elsewhere.
 
+## Invariants
+
+Formal contracts every tool upholds — the properties that keep the thin wrappers safe to compose (rationale and usage notes in *Design notes* above):
+
+- **One question, one judgment.** Each item, claim, or candidate is judged against exactly one criterion, independently of every other item in the same call. There is no cross-item influence.
+- **The model judges; the server computes.** The API returns probabilities and selections. Every threshold, ordering, count, mean, spread, and cluster is derived deterministically in Rust — the model never decides membership in a result set.
+- **Raw probabilities always survive.** Every derived field — `matched`, `failed`, `buckets`, `ranked`, `clusters`, `mean`, … — ships alongside the raw probabilities it was computed from, so callers can re-threshold without re-asking.
+- **Absolutes vs. relatives.** `noul` questions are absolute: one probability per item, and any number of items (including none) can pass. `choice` questions are relative: exactly one caller-supplied option wins, and answers are drawn from the caller-supplied option space.
+- **Index alignment.** Results reference inputs by index and preserve input order. Chunking and batching are invisible: semantics are identical whether an input fits one upstream call or many.
+- **Verification reads "higher = passes".** Every check is phrased as a positive property; `failed` is exactly the set of checks below the caller's `flag_threshold`.
+- **Independent samples.** `stability_check` re-asks the same questions without mutating the caller's state; object states receive a fresh internal token per draw so samples are not correlated.
+- **Stateless, read-only, one credential.** No tool writes files, executes code, or stores data between calls; the only egress is the TypeSafe API under a single API key — one boundary, uniform permissions across all tools.
+- **Fail fast.** Inputs and caps (items, options, samples, characters) are validated before any upstream call; violations return typed errors and never partial results.
+
 ## Testing
 
 Two ready-made test documents describe complete, executable runs that exercise the server and the TypeSafe feature set end to end. Both are written as instructions *for the model under test* — hand the file (or its contents) to any MCP-capable LLM that has this server configured, and it will narrate each step, check the expected outcomes, and produce a final report.
