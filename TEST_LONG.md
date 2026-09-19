@@ -15,7 +15,7 @@ Primary: `https://en.wikipedia.org/wiki/Solar_System`
 Fallback (if fetch fails): `https://en.wikipedia.org/wiki/Coffee`
 Rules: nothing offensive or problematic. If both fail, stop and report FAIL with HTTP error. Do not pick another topic yourself.
 
-Use `mcp_web_fetch_url_text` (preferred). Save raw text length + first 200 chars as proof of fetch.
+Use any available URL-fetch tool. Save raw text length + first 200 chars as proof of fetch.
 
 ## Data preparation (make it non-trivial)
 

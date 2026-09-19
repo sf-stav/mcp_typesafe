@@ -207,7 +207,7 @@ Two ready-made test documents describe complete, executable runs that exercise t
 | [`TEST_SUITE_SIMPLE.md`](TEST_SUITE_SIMPLE.md) | Fast smoke/coverage suite — 15 tests (T01–T15) | Every tool and question type: `systemone` (choice/score/noul/parallel), `list_models`, `filter_items`, `rank_items`, `classify_items`, `dedupe_items`, `choose_one` (pick + reject-all), `stability_check`, `extract_fields` (incl. not-stated), `verify_output` (all standard checks + custom + negative probe), `verify_tool_calls` (relevant pass + irrelevant fail), `check_claims` (supported/contradicted/unverified). Ends with a PASS/FAIL report table. |
 | [`TEST_LONG.md`](TEST_LONG.md) | Deep end-to-end pipeline test with real data volume | Fetch a Wikipedia page → split into 20+ factual sentences → `classify_items` (domains) → `dedupe_items` → `filter_items` → `rank_items` → `systemone` (all three question types in parallel) → `extract_fields` → `stability_check` → `check_claims` (trust filter) → `choose_one` (format pick) → `verify_output` (quality gate) → a full verified study guide with provenance, trust notes, and markdown tables. |
 
-Notes: both suites expect a valid `TYPESAFE_API_KEY` and a live API connection. `TEST_LONG.md` additionally needs a URL-fetch tool for its source page (it prefers `mcp_web_fetch_url_text`; any equivalent fetch tool works).
+Notes: both suites expect a valid `TYPESAFE_API_KEY` and a live API connection. `TEST_LONG.md` additionally needs a URL-fetch tool for its source page (any available fetch tool works).
 
 ## Development
 
@@ -221,6 +221,18 @@ Notes: both suites expect a valid `TYPESAFE_API_KEY` and a live API connection. 
 - TypeSafe documentation: <https://docs.typesafe.ai> · Playground: <https://console.typesafe.ai/playground>
 - Jev accepts text only: a string, a JSON object, or an array of text values.
 - MCP protocol revision served: `2024-11-05`.
+
+## Sponsorship & support
+
+mcp_typesafe is a one-man project by Stav Katsoulis — code, docs, and releases are all done in one person's limited time. Bug reports and well-formed issues are always free and welcome. If you need something specific and soon — tuning for your workload, special one-off work — requests are taken on at a price: open an issue describing the work, and send an email to discuss. This is also the most direct way to make further development happen faster.
+
+## Acknowledgements
+
+Built on TypeSafe's System One API — thanks to the TypeSafe team for the platform. See the [TypeSafe documentation](https://docs.typesafe.ai/introduction) for details on the models and API this server exposes.
+
+## AI disclosure
+
+This software is developed by a very experienced human (i.e. me) with some assistance from open-source LLM models (GLM & DeepSeek). The human author leads the development — i.e. actually writing and/or correcting the code — along with the technical direction, the ideas, testing, and extensive debugging over a long time. If you are not happy with partially AI-developed code, this software is not for you.
 
 ## Disclaimer
 
